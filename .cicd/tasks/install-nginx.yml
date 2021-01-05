@@ -1,0 +1,32 @@
+---
+- name: NGINX | add repos
+  template:
+    src: "nginx.list.j2"
+    dest: "/etc/apt/sources.list.d/nginx.list"
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+  become_user: root
+
+- name: NGINX | add key
+  apt_key:
+    url: "https://nginx.org/keys/nginx_signing.key"
+    state: present
+
+- name: NGINX | update apt cache
+  apt:
+    update_cache: true
+    cache_valid_time: 86400
+  become: true
+  become_user: root
+
+- name: NGINX | install nginx
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - python3-certbot-nginx
+    - nginx
+  become: true
+  become_user: root

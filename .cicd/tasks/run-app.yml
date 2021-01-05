@@ -1,0 +1,67 @@
+---
+- name: "RUN | install requirements in virtual environment"
+  pip:
+    requirements: "{{ deploy_src_repo_dest }}/requirements.txt"
+    virtualenv: "{{ deploy_src_repo_dest }}/venv"
+    virtualenv_command: "{{ ansible_python_interpreter }} -m venv"
+  become: true
+  become_user: "{{ app_user_name }}"
+
+- name: "RUN | generate gunicorn config"
+  template:
+    src: "gunicorn.py.j2"
+    dest: "{{ run_site_gunicorn_dest }}"
+    owner: "{{ app_user_name }}"
+    group: "{{ app_user_name }}"
+    mode: 0755
+  become: true
+  become_user: "{{ app_user_name }}"
+
+- name: "RUN | generate systemd unit file"
+  template:
+    src: "systemd_unit.service.j2"
+    dest: "{{ run_site_systemd_unit }}"
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+  become_user: root
+  notify: daemon reload
+
+- name: "RUN | restart {{ run_site_domain }}.service"
+  systemd:
+    name: "{{ run_site_domain }}.service"
+    state: restarted
+  become: true
+  become_user: root
+
+- name: NGINX | generate site config
+  template:
+    src: "site.conf.j2"
+    dest: "{{ run_site_nginx_default }}"
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+  become_user: root
+  notify: reload nginx
+
+- name: NGINX | generate site ssl
+  template:
+    src: "ssl.conf.j2"
+    dest: "/etc/nginx/ssl.conf"
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+  become_user: root
+  notify: reload nginx
+  when: run_site_nginx_ssl
+
+- name: NGINX | enable nginx service
+  systemd:
+    name: "nginx.service"
+    state: restarted
+    enabled: true
+  become: true
+  become_user: root

@@ -1,0 +1,5 @@
+---
+- src: geerlingguy.certbot
+- src: jtprog.install_base_soft
+- src: nginxinc.nginx
+- src: nginxinc.nginx_config

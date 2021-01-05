@@ -1,0 +1,91 @@
+---
+- name: Install Django app
+  hosts: arm
+  gather_facts: true
+  become: true
+  become_user: root
+
+  vars_files:
+    - ./vars.yml
+    - ./secrets.yml
+
+  handlers:
+    - name: reload nginx
+      systemd:
+        name: nginx.service
+        state: reloaded
+      become: true
+      become_user: root
+
+    - name: daemon reload
+      systemd:
+        daemon_reload: true
+      become: true
+      become_user: root
+
+
+  tasks:
+    - name: BASE
+      include_role:
+        name: jtprog.install_base_soft
+      tags:
+        - basicsoft
+        - install
+
+    # - name: LE
+    #   include_role:
+    #     name: geerlingguy.certbot
+    #   tags:
+    #     - letsencrypt
+    #     - certbot
+
+    - name: NGINX Install
+      include_role:
+        name: nginxinc.nginx
+      tags:
+        - install
+        - nginx
+
+    - name: NGINX Configure
+      include_role:
+        name: nginxinc.nginx_config
+      tags:
+        - configure
+        - nginx
+
+    # - name: NGINX
+    #   include_tasks: ./tasks/install-nginx.yml
+    #   tags:
+    #     - install
+    #     - nginx
+
+    - name: Prepare
+      include_tasks: ./tasks/prepare.yml
+      tags:
+        - prepare
+        - users
+
+    - name: Clone
+      include_tasks: ./tasks/clone.yml
+      tags:
+        - clone
+        - repos
+
+    - name: RUN
+      include_tasks: ./tasks/run-app.yml
+      tags:
+        - run
+        - app
+
+    - name: TEST
+      include_tasks: ./tasks/tests.yml
+      tags:
+        - test
+        - curl
+
+    - name: MIGRATE
+      include_tasks: ./tasks/migrate.yml
+      tags:
+        - collectstatic
+        - migrations
+        - update
