@@ -12,7 +12,7 @@ app_user_bash_profile_content: "bash_profile"
 app_user_vimrc: "vimrc"
 
 # configure deploy
-deploy_src_repo_url: "https://github.com/Linkor-35/django-photo.git"
+deploy_src_repo_url: "https://github.com/pavelmetalarm/wagtail_site.git"
 deploy_src_repo_dest: "/home/{{ app_user_name }}/app"
 deploy_src_work_dir: "{{ deploy_src_repo_dest }}/src"
 deploy_repository_branche_name: "master"
