@@ -5,7 +5,7 @@ app_user_name: "devopspro24"
 app_user_keys:
   - "https://github.com/jtprog.keys"
   - "https://github.com/pavelmetalarm.keys"
-  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGiAIAD5aaBpMZfZDmw2Stawb5lx16yySzfz8R64UmINbL/keakxVQHIoYm2CU8PL3kmvufmSOMoZ6vQYtur9eB4JEhlZTuVUw5UTzqkNyYvy6f64sghdy6cyYaKmF9g/Ub7ZYaLynETk4oulyyUqFOGDpsKNq3zQJfNq6CEknv//BGgDWvowozxhHWLge7X9EICNXBPyqlba8+bq3D4I4tYwSNqDB3+5XPFtMaO0ygfngVUTGrh2P7FATAD+fgw02o5bSakCvLLwwQtveK+Aall19nYklUNr8/lvYBE3/jLjtPpF1Tw8JvPu1h4wYm5ymEUo0DKpOjVAMSuOSloRN github_actions"
+  - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDgXM71ZD4oFWxuN2RHNg2A8exLIUFEdaiFF5EXzRCHSOAx9X1a+jGUa3aJCRD0Xi0qgLjnpODIZauQCbvNeR8ZGecHwNswe3SCdbGj5uc4QkjmtpOVTgcDFVHXfbOkeDQjlV8mn7oYxtYdUzS8JRJ3O62xNfuft+IgcUXcrpu/js8lA/NCZiUOzOpgEbAmUOXv670IAPamcaUDtPjGl30Db0pEWaRPP7/rn1Slb8+bnPfRUTVmKGTXfKK+o7Fz50ub6z8SP9YMBPnt1b/glLXazMlrExxFJA6a/iJVDgnnK/WfxgAsNlF2q3ClTNBhYUlNT7VKey1zG6Lur+4+aKvp github_actions"
 
 app_user_group: "admins"
 app_user_bash_profile_content: "bash_profile"
