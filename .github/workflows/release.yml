@@ -9,7 +9,7 @@ name: Release
 jobs:
   release:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     strategy:
       max-parallel: 4
       matrix:
